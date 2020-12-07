@@ -1,6 +1,11 @@
 <template>
   <div class="col-lg-6 offset-lg-3">
-    <b-form @submit="onSubmit" @reset="onReset" v-if="show" class="mt-4">
+    <b-form
+      @submit="onSubmit"
+      @reset="onReset"
+      v-if="show"
+      class="mt-4 text-left"
+    >
       <b-form-group label="Username*">
         <b-form-input
           v-model="form.name"
@@ -50,11 +55,11 @@ export default {
       form: {
         email: "",
         name: "",
-        password: "",
+        password: ""
       },
       passwordConfirm: "",
       passConfirmed: false,
-      show: true,
+      show: true
     };
   },
   methods: {
@@ -75,7 +80,7 @@ export default {
       this.$nextTick(() => {
         this.show = true;
       });
-    },
-  },
+    }
+  }
 };
 </script>

@@ -13,6 +13,6 @@
 <script>
 export default {
   name: "GuestHome",
-  components: {},
+  components: {}
 };
 </script>

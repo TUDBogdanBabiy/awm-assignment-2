@@ -7,14 +7,14 @@
         <b-navbar-toggle target="navbar-toggle-collapse">
           <template #default="{ expanded }">
             <i v-if="expanded" class="fa fa-chevron-up" aria-hidden="true"></i>
-            <i v-else class="fa fa-chevron-down" aria-hidden="true"></i>
+            <i v-else class="fa fa-bars" aria-hidden="true"></i>
           </template>
         </b-navbar-toggle>
 
         <b-collapse id="navbar-toggle-collapse" is-nav>
           <b-navbar-nav class="ml-auto">
             <b-nav-item href="/">Home</b-nav-item>
-            <b-nav-item href="/about">About</b-nav-item>
+            <b-nav-item href="/map">Map</b-nav-item>
             <b-nav-item href="#/logout" disabled>Logout</b-nav-item>
           </b-navbar-nav>
         </b-collapse>
