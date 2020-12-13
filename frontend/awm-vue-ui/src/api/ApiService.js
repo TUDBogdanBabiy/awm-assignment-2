@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const API_SERVICE_DEFAULT_OPTS = {
-  apiUrl: process.env.API_URL,
+  apiUrl: 'http://localhost:8001/api',
   resource: ""
 };
 
@@ -66,11 +66,12 @@ class ApiService {
       url: `/${slug}`
     });
   }
-  delete(slug, opts = {}) {
+  delete(slug, data, opts = {}) {
     return this._request({
       ...opts,
       method: "delete",
-      url: `/${slug}`
+      url: `/${slug}`,
+      data
     });
   }
 }

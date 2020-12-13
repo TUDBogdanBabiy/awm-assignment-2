@@ -1,5 +1,11 @@
 import ApiService from "./ApiService";
 
-const userService = new ApiService({ resource: "users" });
+const loginService = new ApiService({ resource: "login/" });
+const registerService = new ApiService({ resource: "register/" });
+const logoutService = new ApiService({
+    resource: "logout/",
+    headers: { Authorization: `Token ${localStorage.token}` }
+});
+const verifyTokenService = new ApiService({ resource: 'auth-token/' })
 
-export { userService };
+export { loginService, registerService, logoutService, verifyTokenService };

@@ -8,7 +8,7 @@
     >
       <b-form-group label="Username*">
         <b-form-input
-          v-model="form.name"
+          v-model="form.username"
           required
           placeholder="Enter Username"
         ></b-form-input>
@@ -49,29 +49,38 @@
 </template>
 
 <script>
+import { mapActions } from "vuex";
+
 export default {
   data() {
     return {
       form: {
         email: "",
-        name: "",
-        password: ""
+        username: "",
+        password: "",
       },
       passwordConfirm: "",
       passConfirmed: false,
-      show: true
+      show: true,
     };
   },
   methods: {
-    onSubmit(evt) {
+    ...mapActions(["signUp"]),
+    async onSubmit(evt) {
       evt.preventDefault();
-      alert(JSON.stringify(this.form));
+
+      try {
+        await this.signUp(this.form);
+        this.$router.push({ name: "Home" });
+      } catch (error) {
+        console.log(error);
+      }
     },
     onReset(evt) {
       evt.preventDefault();
       // Reset our form values
       this.form.email = "";
-      this.form.name = "";
+      this.form.username = "";
       this.form.password = "";
       this.passwordConfirm = "";
 
@@ -80,7 +89,7 @@ export default {
       this.$nextTick(() => {
         this.show = true;
       });
-    }
-  }
+    },
+  },
 };
 </script>

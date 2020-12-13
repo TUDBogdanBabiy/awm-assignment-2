@@ -2,7 +2,7 @@
   <div id="app">
     <div id="nav">
       <b-navbar toggleable type="dark" variant="dark" sticky>
-        <b-navbar-brand href="/">Home</b-navbar-brand>
+        <b-navbar-brand href="/">{{ user ? user : "Home" }}</b-navbar-brand>
 
         <b-navbar-toggle target="navbar-toggle-collapse">
           <template #default="{ expanded }">
@@ -13,16 +13,55 @@
 
         <b-collapse id="navbar-toggle-collapse" is-nav>
           <b-navbar-nav class="ml-auto">
-            <b-nav-item href="/">Home</b-nav-item>
-            <b-nav-item href="/map">Map</b-nav-item>
-            <b-nav-item href="#/logout" disabled>Logout</b-nav-item>
+            <b-nav-item to="/">Home</b-nav-item>
+            <b-nav-item :to="`/map/${user}`">Map</b-nav-item>
+            <b-nav-item :to="`/location-history/${user}`"
+              >Location History</b-nav-item
+            >
+            <b-nav-item :to="`/friends/${user}`">Friends</b-nav-item>
+            <b-nav-item @click="logout()">Logout</b-nav-item>
           </b-navbar-nav>
         </b-collapse>
       </b-navbar>
     </div>
-    <router-view />
+    <router-view :key="key" />
   </div>
 </template>
+
+<script>
+import { mapActions } from "vuex";
+
+export default {
+  data() {
+    return {
+      key: true,
+      user: "",
+    };
+  },
+  methods: {
+    ...mapActions(["signOut", "verifyToken"]),
+    async logout() {
+      try {
+        await this.signOut();
+        this.$router.push({ name: "Home" });
+        this.key = !this.key;
+      } catch (error) {
+        console.log(error);
+      }
+    },
+  },
+  async created() {
+    if (localStorage.token) {
+      try {
+        this.user = await this.verifyToken(localStorage.token);
+      } catch (error) {
+        console.log(error);
+        localStorage.removeItem("token");
+      }
+    }
+  },
+};
+</script>
 
 <style>
 #app {

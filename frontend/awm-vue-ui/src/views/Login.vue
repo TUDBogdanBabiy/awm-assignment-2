@@ -8,7 +8,7 @@
     >
       <b-form-group label="Username*">
         <b-form-input
-          v-model="form.name"
+          v-model="form.username"
           required
           placeholder="Enter Username"
         ></b-form-input>
@@ -29,25 +29,34 @@
 </template>
 
 <script>
+import { mapActions } from "vuex";
+
 export default {
   data() {
     return {
       form: {
-        name: "",
-        password: ""
+        username: "",
+        password: "",
       },
-      show: true
+      show: true,
     };
   },
   methods: {
-    onSubmit(evt) {
+    ...mapActions(["signIn"]),
+    async onSubmit(evt) {
       evt.preventDefault();
-      alert(JSON.stringify(this.form));
+
+      try {
+        await this.signIn(this.form);
+        this.$router.push({ name: "Home" });
+      } catch (error) {
+        console.log(error);
+      }
     },
     onReset(evt) {
       evt.preventDefault();
       // Reset our form values
-      this.form.name = "";
+      this.form.username = "";
       this.form.password = "";
 
       // Trick to reset/clear native browser form validation state
@@ -55,7 +64,7 @@ export default {
       this.$nextTick(() => {
         this.show = true;
       });
-    }
-  }
+    },
+  },
 };
 </script>
