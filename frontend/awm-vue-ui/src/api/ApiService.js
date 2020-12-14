@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const API_SERVICE_DEFAULT_OPTS = {
-  apiUrl: 'http://localhost:8001/api',
+  apiUrl: 'https://awm2021bogdanbabiy.xyz/api',
   resource: ""
 };
 
